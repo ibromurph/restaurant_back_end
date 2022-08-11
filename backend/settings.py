@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'content',
     'booking',
-    'colorfield'
+    'colorfield',
+    'menu'
 ]
 CHOICES = (
     ('Week Days', 'Week Days'),

@@ -20,18 +20,6 @@ class TimingSerializers(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MenuDaySerializers(serializers.ModelSerializer):
-    class Meta:
-        model = MenuDay
-        fields = '__all__'
-
-
-class MenuSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Menu
-        fields = '__all__'
-
-
 class InstagramPostSerializers(serializers.ModelSerializer):
     class Meta:
         model = InstagramPost

@@ -39,7 +39,8 @@ class BookTableCover(models.Model):
 
 
 class BookTableCover2(models.Model):
-    cover_Img = models.ImageField(upload_to='BookingTable/')
+    cover_Img = models.ImageField(upload_to='BookingTable/', help_text='recommended dimensions 1000x403')
+    Text = models.TextField()
 
     def __str__(self):
         return "{}".format(self.id)

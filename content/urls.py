@@ -12,11 +12,6 @@ urlpatterns = [
     path('TimingAPI/', TimingAPI.as_view(), name='TimingAPI Create'),
     path('TimingAPI/<int:pk>/', TimingData.as_view(), name='TimingAPI  RUD'),
 
-    path('MenuDayAPI/', MenuDayAPI.as_view(), name='MenuDayAPI Create'),
-    path('MenuDayAPI/<int:pk>/', MenuDayData.as_view(), name='MenuDayAPI  RUD'),
-
-    path('MenuAPI/', MenuAPI.as_view(), name='MenuAPI Create'),
-    path('MenuAPI/<int:pk>/', MenuData.as_view(), name='MenuAPI  RUD'),
 
     path('InstagramPostAPI/', InstagramPostAPI.as_view(), name='InstagramPostAPI Create'),
     path('InstagramPostAPI/<int:pk>/', InstagramPostData.as_view(), name='InstagramPostAPI  RUD'),

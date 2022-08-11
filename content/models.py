@@ -1,5 +1,4 @@
 from django.db import models
-from backend.settings import CHOICES
 from colorfield.fields import ColorField
 
 
@@ -55,30 +54,6 @@ class Timing(models.Model):
 
     class Meta:
         verbose_name_plural = 'Timing'
-
-
-class MenuDay(models.Model):
-    Day_Type = models.CharField(max_length=300, choices=CHOICES, blank=False, null=False, unique=True)
-    Start_Time = models.TimeField()
-    End_Time = models.TimeField()
-
-    def __str__(self):
-        return "{}-{}-{}".format(self.Day_Type, self.Start_Time, self.End_Time)
-
-    class Meta:
-        verbose_name_plural = 'Menu Day'
-
-
-class Menu(models.Model):
-    Title = models.CharField(max_length=100, null=True, blank=True)
-    Days = models.ManyToManyField(to=MenuDay)
-    Menu_File = models.FileField(upload_to='MenuFile/', null=True, blank=True)
-
-    def __str__(self):
-        return "{}".format(self.id)
-
-    class Meta:
-        verbose_name_plural = 'Menu'
 
 
 class InstagramPost(models.Model):
