@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.crypto import get_random_string
+from backend.settings import BOOKING_STATUS
 
 
 # Create your models here.
@@ -14,6 +15,7 @@ class TableBooking(models.Model):
     Telephone_Number = models.CharField(max_length=100, null=True, blank=True)
     Type_of_Booking = models.BooleanField()
     Get_Emails = models.BooleanField()
+    Status_booking = models.CharField(max_length=100, null=True, blank=True, choices=BOOKING_STATUS, default='Pending')
 
     def save(self, *args, **kwargs):
         if self.BookingID is None:
@@ -24,6 +26,7 @@ class TableBooking(models.Model):
         return "{}-{}".format(self.id, self.BookingID)
 
     class Meta:
+        ordering = ('-id',)
         verbose_name_plural = 'Bookings'
 
 

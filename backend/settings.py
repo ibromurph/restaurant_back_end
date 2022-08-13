@@ -51,6 +51,13 @@ CHOICES = (
     ('Week Days', 'Week Days'),
     ('Week end', 'Week end'),
 )
+
+BOOKING_STATUS = (
+    ('Confirmed', 'Confirmed'),
+    ('Cancelled', 'Cancelled'),
+    ('EventPassed', 'EventPassed'),
+    ('Pending', 'Pending'),
+)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
