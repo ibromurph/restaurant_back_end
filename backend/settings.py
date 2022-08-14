@@ -147,9 +147,32 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# TESTING EMAIL:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'Monitor.io.app@gmail.com'
+# EMAIL_HOST_PASSWORD = '^m\$9E@4X7#Ww.:C'
+
+
+
+EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'Monitor.io.app@gmail.com'
-EMAIL_HOST_PASSWORD = '^m\$9E@4X7#Ww.:C'
+EMAIL_HOST_USER = 'AltETWeb@outlook.com'
+EMAIL_HOST_PASSWORD = 'gg1*NG0v5kF2'
+
+
+# gg1*NG0v5kF2
+# AltETWeb@outlook.com
+
+# Server name: outlook.office365.com
+# Port: 995
+# Encryption method: TLS
+# Server name: outlook.office365.com
+# Port: 993
+# Encryption method: TLS
+# Server name: smtp.office365.com
+# Port: 587
+# Encryption method: STARTTLS

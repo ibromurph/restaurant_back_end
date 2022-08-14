@@ -8,7 +8,7 @@ class BookingAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Info', {'fields': (
             'BookingID', 'Party_Size', 'First_Name', 'Last_Name', 'Email',
-            'Telephone_Number', 'Type_of_Booking', 'Get_Emails')}),
+            'Telephone_Number', 'Type_of_Booking', 'Get_Emails', 'Status_booking')}),
         ("Booking Details", {"fields": (tuple(['Booking_Time', 'Booking_Date']),), }),
     )
 

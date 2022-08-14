@@ -1,8 +1,10 @@
+from django.core.mail import EmailMultiAlternatives, send_mail
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .Serializer import *
+from django.template.loader import get_template
 
 
 class TableBookingAPI(APIView):
@@ -17,6 +19,13 @@ class TableBookingAPI(APIView):
         serializer = TableBookingSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            htmly = get_template('Email.html')
+            data = {'firstname': "firstname", 'lastname': "lastname", 'activate_url': "activate_url"}
+            subject, from_email, to = 'Welcome Dear' + " " + "firstname.capitalize()" + " " + "lastname.capitalize()" + "" + "Please Activate your account",'AltETWeb@outlook.com', 'abdullahrafi.ar@gmail.com'
+            html_content = htmly.render(data)
+            msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
