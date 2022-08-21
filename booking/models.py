@@ -5,7 +5,7 @@ from backend.settings import BOOKING_STATUS
 
 # Create your models here.
 class TableBooking(models.Model):
-    BookingID = models.CharField(max_length=12, null=True, blank=True)
+    BookingID = models.CharField(max_length=12, null=True, blank=True, default=get_random_string(length=12))
     Booking_Time = models.TimeField()
     Booking_Date = models.DateField()
     Party_Size = models.IntegerField()
@@ -18,6 +18,8 @@ class TableBooking(models.Model):
     Status_booking = models.CharField(max_length=100, null=True, blank=True, choices=BOOKING_STATUS, default='Pending')
 
     def save(self, *args, **kwargs):
+        if self.BookingID == "":
+            self.BookingID = get_random_string(length=12)
         if self.BookingID is None:
             self.BookingID = get_random_string(length=12)
         super(TableBooking, self).save(*args, **kwargs)

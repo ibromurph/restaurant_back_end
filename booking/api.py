@@ -1,4 +1,5 @@
 from django.core.mail import EmailMultiAlternatives, send_mail
+from django.http import Http404
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,9 +20,23 @@ class TableBookingAPI(APIView):
         serializer = TableBookingSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            data_s = serializer.data
+            id = data_s['id']
+            TableData = TableBooking.objects.get(id=id)
             htmly = get_template('Email.html')
-            data = {'firstname': "firstname", 'lastname': "lastname", 'activate_url': "activate_url"}
-            subject, from_email, to = 'Welcome Dear' + " " + "firstname.capitalize()" + " " + "lastname.capitalize()" + "" + "Please Activate your account",'AltETWeb@outlook.com', 'abdullahrafi.ar@gmail.com'
+            firstname = TableData.First_Name
+            lastname = TableData.Last_Name
+            Email = TableData.Email
+            BookingID = TableData.BookingID
+            Status_booking = TableData.Status_booking
+            Booking_Time = TableData.Booking_Time
+            Booking_Date = TableData.Booking_Date
+            Party_Size = TableData.Party_Size
+
+            data = {'firstname': firstname, 'lastname': lastname, "Status_booking": Status_booking,
+                    "Booking_Time": Booking_Time, "Booking_Date": Booking_Date, "Party_Size": Party_Size,
+                    "BookingID": BookingID}
+            subject, from_email, to = 'Greetings' + " " + firstname.capitalize() + " " + lastname.capitalize() + "" + "Confirmation of your booking", 'Altetweb@outlook.com', "abdullahrafi.ar@gmail.com "
             html_content = htmly.render(data)
             msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
@@ -30,11 +45,47 @@ class TableBookingAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class TableBookingData(generics.RetrieveUpdateDestroyAPIView):
-    def get_queryset(self):
-        return TableBooking.objects.filter(id=self.kwargs['pk'])
+class TableBookingData(APIView):
+    def get_object(self, pk):
+        try:
+            return TableBooking.objects.get(pk=pk)
+        except TableBooking.DoesNotExist:
+            raise Http404
 
-    serializer_class = TableBookingSerializers
+    def get_object_all(self):
+        try:
+            TableBooking.objects.all()
+        except TableBooking.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = TableBookingSerializers(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        snippet = self.get_object(pk)
+        data = request.data
+
+        try:
+            TableBooking.objects.filter(pk=pk)
+            successMessage = 'Rating Updated'
+            return Response({"message": successMessage}, status=status.HTTP_200_OK)
+
+        except Exception as ex:
+            return Response({"message": ex}, status=status.HTTP_403_FORBIDDEN)
+
+    def delete(self, request, pk):
+        snippet = self.get_object(pk)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# class TableBookingData(generics.RetrieveUpdateDestroyAPIView):
+#     def get_queryset(self):
+#         return TableBooking.objects.filter(id=self.kwargs['pk'])
+#
+#     serializer_class = TableBookingSerializers
 
 
 class BookTableCoverAPI(APIView):
