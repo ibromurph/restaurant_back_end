@@ -17,7 +17,9 @@ class TableBookingAPI(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = TableBookingSerializers(data=request.data)
+        print(request.data, "i am data")
+        serializer = TableBookingSerializers(data=request.data, many=False)
+
         if serializer.is_valid():
             serializer.save()
             data_s = serializer.data
@@ -33,14 +35,14 @@ class TableBookingAPI(APIView):
             Booking_Date = TableData.Booking_Date
             Party_Size = TableData.Party_Size
 
-            data = {'firstname': firstname, 'lastname': lastname, "Status_booking": Status_booking,
-                    "Booking_Time": Booking_Time, "Booking_Date": Booking_Date, "Party_Size": Party_Size,
-                    "BookingID": BookingID}
-            subject, from_email, to = 'Greetings' + " " + firstname.capitalize() + " " + lastname.capitalize() + "" + "Confirmation of your booking", 'Altetweb@outlook.com', Email
-            html_content = htmly.render(data)
-            msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
+            # data = {'firstname': firstname, 'lastname': lastname, "Status_booking": Status_booking,
+            #         "Booking_Time": Booking_Time, "Booking_Date": Booking_Date, "Party_Size": Party_Size,
+            #         "BookingID": BookingID}
+            # subject, from_email, to = 'Greetings' + " " + firstname.capitalize() + " " + lastname.capitalize() + "" + "Confirmation of your booking", 'Altetweb@outlook.com', Email
+            # html_content = htmly.render(data)
+            # msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+            # msg.attach_alternative(html_content, "text/html")
+            # msg.send()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -107,7 +109,7 @@ class CancelTableBookingVIABID(APIView):
             data = TableBooking.objects.filter(BookingID=bookingID)
             if len(data):
                 data.update(Status_booking='Cancelled')
-                Sendemail(data)
+                # Sendemail(data)
                 return Response({"message": 'Your Booking is Cancelled'})
             else:
                 return Response({"message": 'No booking Found'})
