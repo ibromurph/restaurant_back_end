@@ -4,6 +4,9 @@ from .api import *
 urlpatterns = [
     path('TableBookingAPI/', TableBookingAPI.as_view(), name='TableBookingAPI Create'),
     path('TableBookingAPI/<int:pk>/', TableBookingData.as_view(), name='TableBookingAPI  RUD'),
+    path('CancelBookingBID/<slug:bookingID>/', CancelTableBookingVIABID.as_view(),
+         name='Cancel Booking Via Booking ID'),
+    path('CancelBookingEmail/<email>/', CancelTableBookingVIAEmail.as_view(), name='Cancel Booking Via Email'),
 
     path('BookTableCoverAPI/', BookTableCoverAPI.as_view(), name='BookTableCoverAPI Create'),
     path('BookTableCoverAPI/<int:pk>/', BookTableCoverData.as_view(), name='BookTableCoverAPI  RUD'),

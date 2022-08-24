@@ -36,7 +36,7 @@ class TableBookingAPI(APIView):
             data = {'firstname': firstname, 'lastname': lastname, "Status_booking": Status_booking,
                     "Booking_Time": Booking_Time, "Booking_Date": Booking_Date, "Party_Size": Party_Size,
                     "BookingID": BookingID}
-            subject, from_email, to = 'Greetings' + " " + firstname.capitalize() + " " + lastname.capitalize() + "" + "Confirmation of your booking", 'Altetweb@outlook.com', "abdullahrafi.ar@gmail.com "
+            subject, from_email, to = 'Greetings' + " " + firstname.capitalize() + " " + lastname.capitalize() + "" + "Confirmation of your booking", 'Altetweb@outlook.com', Email
             html_content = htmly.render(data)
             msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
@@ -81,11 +81,46 @@ class TableBookingData(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# class TableBookingData(generics.RetrieveUpdateDestroyAPIView):
-#     def get_queryset(self):
-#         return TableBooking.objects.filter(id=self.kwargs['pk'])
-#
-#     serializer_class = TableBookingSerializers
+def Sendemail(data):
+    bookingid = data.get().BookingID
+    firstname = data.get().First_Name
+    lastname = data.get().Last_Name
+    Email = data.get().Email
+    Booking_Time = data.get().Booking_Time
+    Booking_Date = data.get().Booking_Date
+
+    htmly = get_template('Cancelled.html')
+    data = {'firstname': firstname, 'lastname': lastname, "Status_booking": "Cancelled",
+            "Booking_Time": Booking_Time, "Booking_Date": Booking_Date,
+            "BookingID": bookingid}
+    subject, from_email, to = 'Greetings' + " " + firstname.capitalize() + " " + lastname.capitalize() + "" + " Cancellation of your booking", 'Altetweb@outlook.com', Email
+    html_content = htmly.render(data)
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
+class CancelTableBookingVIABID(APIView):
+    def put(self, request, *args, **kwargs):
+        bookingID = self.kwargs['bookingID']
+        try:
+            data = TableBooking.objects.filter(BookingID=bookingID)
+            if len(data):
+                data.update(Status_booking='Cancelled')
+                Sendemail(data)
+                return Response({"message": 'Your Booking is Cancelled'})
+            else:
+                return Response({"message": 'No booking Found'})
+        except Exception as ex:
+            return Response({"message": ex})
+
+
+class CancelTableBookingVIAEmail(APIView):
+    def get(self, request, *args, **kwargs):
+        Email = self.kwargs['email']
+        data = TableBooking.objects.filter(Email=Email)
+        serializer = TableBookingSerializers(data, many=True)
+        return Response(serializer.data)
 
 
 class BookTableCoverAPI(APIView):

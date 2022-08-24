@@ -4,7 +4,9 @@ from .models import *
 
 # Register your models here.
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'BookingID', 'Booking_Time', 'Party_Size', 'Booking_Date', 'Email', 'Status_booking')
+    list_display = (
+        'id', 'Email', 'BookingID', 'First_Name', 'Last_Name', 'Booking_Time', 'Party_Size', 'Booking_Date', 'Email',
+        'Status_booking')
     fieldsets = (
         ('Info', {'fields': (
             'BookingID', 'Party_Size', 'First_Name', 'Last_Name', 'Email',
