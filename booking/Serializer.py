@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import *
 
 
+class TableBookingCheckSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = TableBooking
+        fields = ('Booking_Time', 'Booking_Date', 'Party_Size','Status_booking')
+
+
 class TableBookingSerializers(serializers.ModelSerializer):
     class Meta:
         model = TableBooking

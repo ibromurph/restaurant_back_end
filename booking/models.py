@@ -2,13 +2,13 @@ import uuid
 
 from django.db import models
 from django.utils.crypto import get_random_string
-from backend.settings import BOOKING_STATUS
+from backend.settings import BOOKING_STATUS, AvailableSlots
 
 
 # Create your models here.
 class TableBooking(models.Model):
-    BookingID = models.CharField(max_length=16, unique=True, null=True, blank=True)
-    Booking_Time = models.TimeField()
+    BookingID = models.CharField(max_length=16, null=True, blank=True)
+    Booking_Time = models.CharField(max_length=100, null=True, blank=True, choices=AvailableSlots)
     Booking_Date = models.DateField()
     Party_Size = models.IntegerField()
     First_Name = models.CharField(max_length=100)

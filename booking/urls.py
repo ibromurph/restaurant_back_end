@@ -2,6 +2,7 @@ from django.urls import path
 from .api import *
 
 urlpatterns = [
+    path('TableBookingAvailability/', TableBookingAvailability.as_view(), name='TableBookingAPI Create'),
     path('TableBookingAPI/', TableBookingAPI.as_view(), name='TableBookingAPI Create'),
     path('TableBookingAPI/<int:pk>/', TableBookingData.as_view(), name='TableBookingAPI  RUD'),
     path('CancelBookingBID/<slug:bookingID>/', CancelTableBookingVIABID.as_view(),
