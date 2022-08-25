@@ -37,7 +37,7 @@ class TableBookingAvailability(APIView):
         if len(Final_Slots) >= 0:
             return Response({"Slots": Final_Slots[0:16]})
         else:
-            return Response({'message': 'No Slots Available'})
+            raise Http404
 
 
 class TableBookingAPI(APIView):
@@ -50,7 +50,6 @@ class TableBookingAPI(APIView):
 
     def post(self, request, format=None):
         serializer = TableBookingSerializers(data=request.data, many=False)
-        print(request.data, 'i am data')
         if serializer.is_valid():
             serializer.save()
             data_s = serializer.data
@@ -153,7 +152,13 @@ class CancelTableBookingVIAEmail(APIView):
         Email = self.kwargs['email']
         data = TableBooking.objects.filter(Email=Email)
         serializer = TableBookingSerializers(data, many=True)
-        return Response(serializer.data)
+
+        if len(serializer.data) > 0:
+            return Response(serializer.data)
+        else:
+            raise Http404
+            # print(serializer.errors)
+            # return Response({"serializer.errors, status=status.HTTP_400_BAD_REQUEST"})
 
 
 class BookTableCoverAPI(APIView):
