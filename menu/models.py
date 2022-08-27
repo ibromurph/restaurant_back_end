@@ -18,16 +18,6 @@ class MenuCarousel(models.Model):
         verbose_name_plural = 'Menu Carousel'
 
 
-class MenuDay(models.Model):
-    Day_Type = models.CharField(max_length=300, choices=CHOICES, blank=False, null=False, unique=True)
-    Start_Time = models.TimeField()
-    End_Time = models.TimeField()
-
-    def __str__(self):
-        return "{}-{}-{}".format(self.Day_Type, self.Start_Time, self.End_Time)
-
-    class Meta:
-        verbose_name_plural = 'Menu Day'
 
 
 class Menu(models.Model):

@@ -30,12 +30,25 @@ class TimingAdmin(admin.ModelAdmin):
     )
 
 
+class ContactedUSAdmin(admin.ModelAdmin):
+    list_display = ('id', 'TicketID', 'Name', 'Email', 'Subject')
+
+
+class ContactUSAdmin(admin.ModelAdmin):
+    list_display = ('id', 'Phone', 'Google_Maps', 'Email', 'Address')
+
+
+class SocialMediaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'Facebook', 'Twitter', 'Instagram')
+
+
 admin.site.register(Timing, TimingAdmin)
 admin.site.register(Carousel, CarouselAdmin)
-admin.site.register(SocialMedia)
-
+admin.site.register(SocialMedia, SocialMediaAdmin)
+admin.site.register(ContactedUs, ContactedUSAdmin)
 admin.site.register(InstagramPost)
-admin.site.register(ContactUs)
+admin.site.register(ContactUs, ContactUSAdmin)
 admin.site.register(BrandLogo)
 admin.site.register(AboutUs)
 admin.site.register(HomePageImage)
+admin.site.register(ContactUsPage)

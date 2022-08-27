@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .Serializer import *
+from django.http import JsonResponse
 
 
 class SocialMediaAPI(APIView):
@@ -74,7 +75,6 @@ class TimingData(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TimingSerializers
 
 
-
 class InstagramPostAPI(APIView):
     serializer_class = InstagramPostSerializers
 
@@ -97,6 +97,11 @@ class InstagramPostData(generics.RetrieveUpdateDestroyAPIView):
 
     serializer_class = InstagramPostSerializers
 
+
+# /class dfypListView(generics.ListAPIView):
+# # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+# queryset = distinguished_fyp.objects.all()
+# serializer_class = dfypSerializer
 
 class ContactUsAPI(APIView):
     serializer_class = ContactUsSerializers
@@ -126,7 +131,7 @@ class BrandLogoAPI(APIView):
 
     def get(self, request):
         data = BrandLogo.objects.all()
-        serializer = BrandLogoSerializers(data, many=True)
+        serializer = BrandLogoSerializers(data, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -149,7 +154,7 @@ class AboutUsAPI(APIView):
 
     def get(self, request):
         data = AboutUs.objects.all()
-        serializer = AboutUsSerializers(data, many=True)
+        serializer = AboutUsSerializers(data, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -211,3 +216,49 @@ class AddressDetailsData(generics.RetrieveUpdateDestroyAPIView):
         return AddressDetails.objects.filter(id=self.kwargs['pk'])
 
     serializer_class = AddressDetailsSerializers
+
+
+class ContactedUSAPI(APIView):
+    serializer_class = ContactedUsSerializers
+
+    def get(self, request):
+        data = ContactedUs.objects.all()
+        serializer = ContactedUsSerializers(data, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ContactedUsSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ContactedUSData(generics.RetrieveUpdateDestroyAPIView):
+    def get_queryset(self):
+        return ContactedUs.objects.filter(id=self.kwargs['pk'])
+
+    serializer_class = ContactedUsSerializers
+
+
+class ContactUSPageAPI(APIView):
+    serializer_class = ContactUsPageSerializers
+
+    def get(self, request):
+        data = ContactUsPage.objects.all()
+        serializer = ContactUsPageSerializers(data, many=True, context={'request': request})
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ContactUsPageSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ContactUSPageData(generics.RetrieveUpdateDestroyAPIView):
+    def get_queryset(self):
+        return ContactUsPage.objects.filter(id=self.kwargs['pk'])
+
+    serializer_class = ContactUsPageSerializers

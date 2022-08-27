@@ -12,12 +12,8 @@ urlpatterns = [
     path('TimingAPI/', TimingAPI.as_view(), name='TimingAPI Create'),
     path('TimingAPI/<int:pk>/', TimingData.as_view(), name='TimingAPI  RUD'),
 
-
     path('InstagramPostAPI/', InstagramPostAPI.as_view(), name='InstagramPostAPI Create'),
     path('InstagramPostAPI/<int:pk>/', InstagramPostData.as_view(), name='InstagramPostAPI  RUD'),
-
-    path('ContactUsAPI/', ContactUsAPI.as_view(), name='ContactUsAPI Create'),
-    path('ContactUsAPI/<int:pk>/', ContactUsData.as_view(), name='ContactUsAPI  RUD'),
 
     path('ContactUsAPI/', ContactUsAPI.as_view(), name='ContactUsAPI Create'),
     path('ContactUsAPI/<int:pk>/', ContactUsData.as_view(), name='ContactUsAPI  RUD'),
@@ -34,4 +30,9 @@ urlpatterns = [
     path('AddressDetailsAPI/', AddressDetailsAPI.as_view(), name='AddressDetailsAPI Create'),
     path('AddressDetailsAPI/<int:pk>/', AddressDetailsData.as_view(), name='AddressDetailsAPI  RUD'),
 
+    path('ContactedUSAPI/', ContactedUSAPI.as_view(), name='ContactedUSAPI Create'),
+    path('ContactedUSData/<int:pk>/', ContactedUSData.as_view(), name='ContactedUSData  RUD'),
+
+    path('ContactUSPageAPI/', ContactUSPageAPI.as_view(), name='ContactedUSAPI Create'),
+    path('ContactUSPageData/<int:pk>/', ContactUSPageData.as_view(), name='ContactedUSData  RUD'),
 ]

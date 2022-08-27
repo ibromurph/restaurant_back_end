@@ -2,10 +2,6 @@ from django.contrib import admin
 from .models import *
 
 
-class MenuDayAdmin(admin.ModelAdmin):
-    list_display = ('id', 'Day_Type', 'Start_Time', 'End_Time')
-
-
 class MenuAdmin(admin.ModelAdmin):
     list_display = ('id', 'Title', 'Menu_File')
     fieldsets = (
@@ -38,4 +34,3 @@ class MenuCarouselAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(MenuCarousel, MenuCarouselAdmin)
 admin.site.register(Menu, MenuAdmin)
-admin.site.register(MenuDay, MenuDayAdmin)

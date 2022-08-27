@@ -2,10 +2,7 @@ from rest_framework import serializers
 from .models import *
 
 
-class MenuDaySerializers(serializers.ModelSerializer):
-    class Meta:
-        model = MenuDay
-        fields = '__all__'
+
 
 
 class MenuSerializers(serializers.ModelSerializer):

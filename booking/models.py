@@ -39,6 +39,15 @@ class BookTableCover(models.Model):
     cover_Img = models.ImageField(upload_to='BookingTable/')
     Caption = models.CharField(max_length=100, blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        try:
+            self.__class__.objects.get(id=self.id)
+            return super(BookTableCover, self).save(*args, **kwargs)
+        except Exception as e:
+            if self.__class__.objects.all().count() >= 1:
+                return None
+            return super(BookTableCover, self).save(*args, **kwargs)
+
     def __str__(self):
         return "{}-{}".format(self.id, self.Caption)
 
@@ -49,6 +58,15 @@ class BookTableCover(models.Model):
 class BookTableCover2(models.Model):
     cover_Img = models.ImageField(upload_to='BookingTable/', help_text='recommended dimensions 1000x403')
     Text = models.TextField()
+
+    def save(self, *args, **kwargs):
+        try:
+            self.__class__.objects.get(id=self.id)
+            return super(BookTableCover2, self).save(*args, **kwargs)
+        except Exception as e:
+            if self.__class__.objects.all().count() >= 1:
+                return None
+            return super(BookTableCover2, self).save(*args, **kwargs)
 
     def __str__(self):
         return "{}".format(self.id)

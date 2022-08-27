@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'content',
     'booking',
     'colorfield',
-    'menu'
+    'menu',
+    'ckeditor'
 ]
 CHOICES = (
     ('Week Days', 'Week Days'),

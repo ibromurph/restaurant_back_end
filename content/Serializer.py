@@ -20,6 +20,12 @@ class TimingSerializers(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ContactedUsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ContactedUs
+        fields = '__all__'
+
+
 class InstagramPostSerializers(serializers.ModelSerializer):
     class Meta:
         model = InstagramPost
@@ -46,11 +52,29 @@ class BrandLogoSerializers(serializers.ModelSerializer):
         model = BrandLogo
         fields = '__all__'
 
+    def get_Img(self, BrandLogo):
+        try:
+            request = self.context.get('request')
+            if BrandLogo.Logo:
+                Logo = BrandLogo.Logo.url
+                return request.build_absolute_uri(Logo)
+        except NameError:
+            print(NameError)
+
 
 class AboutUsSerializers(serializers.ModelSerializer):
     class Meta:
         model = AboutUs
         fields = '__all__'
+
+    def get_CoverImage(self, AboutUs):
+        try:
+            request = self.context.get('request')
+            if AboutUs.CoverImage:
+                CoverImage = AboutUs.CoverImage.Url
+                return request.build_absolute_uri(CoverImage)
+        except NameError:
+            print(NameError)
 
 
 class HomePageImageSerializers(serializers.ModelSerializer):
@@ -72,3 +96,18 @@ class AddressDetailsSerializers(serializers.ModelSerializer):
     class Meta:
         model = AddressDetails
         fields = '__all__'
+
+
+class ContactUsPageSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ContactUsPage
+        fields = '__all__'
+
+        def get_Image(self, ContactUsPage):
+            try:
+                request = self.context.get('request')
+                if ContactUsPage.Image:
+                    Image = ContactUsPage.Image.url
+                    return request.build_absolute_uri(Image)
+            except NameError:
+                print(NameError)
