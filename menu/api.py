@@ -5,7 +5,6 @@ from rest_framework import status
 from .Serializer import *
 
 
-
 class MenuAPI(APIView):
     serializer_class = MenuSerializers
 
