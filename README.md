@@ -50,3 +50,5 @@ password=root
 Heroku admin login detail
 username=ibromurph
 password=dave123
+ 
+Credit: Ibrahim Murphy, Mohammed Charles Murphy (brother; offering support and QA), template design from colorlib.com
