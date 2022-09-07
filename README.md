@@ -46,4 +46,7 @@ Existing user details
 Login Details 
 username=ibromurph
 password=root
-```
+
+Heroku admin login detail
+username=ibromurph
+password=dave123
